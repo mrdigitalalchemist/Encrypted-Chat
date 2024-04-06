@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>👻 WEB3 ENCRYPTED CHAT</title>
+  <meta name="description" content="A minimalist, open-source, end-to-end encrypted chat application.">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
+  <link href="/styles.css" rel="stylesheet">
+  <style>
+    /* Apply typewriter font to specific elements */
+    .typewriter-font {
+      font-family: 'Roboto Mono', monospace;
+    }
+  </style>
+</head>
+<body>
+  <div id="vue-instance">
+    <div class="chat-container full-width" ref="chatContainer">
+      <div class="title-header">
+        <h1>👻 WEB3 ENCRYPTED CHAT</h1>
+        <h2 class="typewriter-font">End-to-End ⛓️ Encrypted Communication</h2>
+      </div>
+      <div class="message-list">
+        <div class="message full-width" v-for="message in messages">
+          <p class="typewriter-font">
+            <span v-bind:class="(message.sender == originPublicKey) ? 'green' : 'red'">{{ getKeySnippet(message.sender) }}</span>
+            > {{ message.text }}
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="info-container full-width">
+      <h1>PRIVATE CHATROOM</h1>
+      <div class="room-select">
+        <input type="text" class="full-width" placeholder="Room Name" id="room-input" v-model="pendingRoom">
+        <input class="yellow-button full-width" type="submit" v-on:click="joinRoom()" value="JOIN">
+      </div>
+      <div class="divider"></div>
+      <div class="notification-list" ref="notificationContainer">
+        <h1>CONNECTION LOG</h1>
+        <div class="notification full-width" v-for="notification in notifications">
+          <div class="notification-timestamp">{{ notification.timestamp }}</div>
+          <div class="notification-message">{{ notification.message }}</div>
+        </div>
+      </div>
+      <div class="flex-fill"></div>
+      <div class="divider"></div>
+      <div class="keys full-width">
+        <h1>KEYS</h1>
+        <h2>THEIR PUBLIC KEY</h2>
+        <div class="key red" v-if="destinationPublicKey">
+          <h3 class="typewriter-font">TRUNCATED IDENTIFIER - {{ getKeySnippet(destinationPublicKey) }}</h3>
+          <p class="typewriter-font">{{ destinationPublicKey }}</p>
+        </div>
+        <h2 v-else class="typewriter-font">Waiting for the second user to join the room...</h2>
+        <div class="divider"></div>
+        <h2 class="typewriter-font">YOUR PUBLIC KEY</h2>
+        <div class="key green" v-if="originPublicKey">
+          <h3 class="typewriter-font">TRUNCATED IDENTIFIER - {{ getKeySnippet(originPublicKey) }}</h3>
+          <p class="typewriter-font">{{ originPublicKey }}</p>
+        </div>
+        <div class="keypair-loader full-width" v-else>
+          <div class="center-x loader"></div>
+          <h2 class="center-text typewriter-font">Generating Keypair...</h2>
+        </div>
+      </div>
+    </div>
+    <div class="bottom-bar full-width">
+      > <input class="message-input typewriter-font" type="text" placeholder="Message" v-model="draft" @keyup.enter="sendMessage()">
+    </div>
+  </div>
+  <div class="container full-width" ref="chatContainer">
+    <div class="title-header">
+      <h1>👻 WEB3 ENCRYPTED CHAT</h1>
+      <h2 class="typewriter-font">End-to-End ⛓️ Encrypted Communication</h2>
+    </div>
+    <div class="footer-content">
+      <p class="typewriter-font">Disclaimer: This application is part of our web3 educational courses on end-to-end communication encryption. It is intended for use as a learning resource. Please refrain from using it to share sensitive information or engage in any illicit activities. This platform is designed solely for educational purposes. Regardless of its full encryption, please do not misuse its capabilities, as we will promptly shut it down if abuse is detected.</p>
+      <p class="yellow typewriter-font">Empower yourself with knowledge for a safer web3. Explore our <a class="blog-plug" target="_blank" rel="noopener" href="https://support@blockchain-otp.com">🎓WEB3 EDU</a> courses.</p>
+    </div>
+  </footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.4.1/vue.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.slim.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/immutable/3.8.1/immutable.min.js"></script>
+  <script src="/page.js"></script>
+</body>
+</html>

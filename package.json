@@ -1,0 +1,19 @@
+{
+  "name": "web3encryptedchat",
+  "version": "1.0.0",
+  "node": "8.1.4",
+  "license": "MIT",
+  "author": "support@blockchain-otp.com",
+  "description": "End-to-end RSA-256 encrypted communication.",
+  "main": "app.js",
+  "engines": {
+    "node": ">=7.6"
+  },
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "socket.io": "^4.7.5"
+  }
+}
