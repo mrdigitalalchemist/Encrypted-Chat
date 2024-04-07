@@ -3,10 +3,10 @@ const express = require('express')
 
 // Setup Express server
 const app = express()
-const https = require('https').Server(app)
+const http = require('http').Server(app)
 
 // Attach Socket.io to server
-const io = require('socket.io')(https)
+const io = require('socket.io')(http)
 
 // Serve web app directory
 app.use(express.static('public'))
@@ -70,6 +70,6 @@ io.on('connection', (socket) => {
 
 // Start server
 const port = process.env.PORT || 3000
-https.listen(port, () => {
+server.listen(port, () => {
   console.log(`Chat server listening on port ${port}.`)
 })
