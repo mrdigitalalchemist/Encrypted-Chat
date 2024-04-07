@@ -70,6 +70,6 @@ io.on('connection', (socket) => {
 
 // Start server
 const port = process.env.PORT || 3000
-server.listen(port, () => {
+http.listen(port, () => {
   console.log(`Chat server listening on port ${port}.`)
 })
