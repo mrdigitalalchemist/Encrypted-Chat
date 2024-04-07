@@ -10,12 +10,12 @@ const vm = new Vue ({
       messages: [],
       notifications: [],
       currentRoom: null,
-      pendingRoom: Math.floor(Math.random() * 1000000000),
+      pendingRoom: Math.floor(Math.random() * 100000),
       draft: ''
     }
   },
   async created () {
-    this.addNotification('Welcome! Generating a one time keypair now.')
+    this.addNotification('Welcome! Generating a new keypair now.')
 
     // Initialize crypto webworker thread
     this.cryptWorker = new Worker('crypto-worker.js')
@@ -80,7 +80,7 @@ const vm = new Vue ({
         this.addNotification(`Cannot join ${this.pendingRoom}, room is full`)
 
         // Join a random room as a fallback
-        this.pendingRoom = Math.floor(Math.random() * 1000)
+        this.pendingRoom = Math.floor(Math.random() * 100000)
         this.joinRoom()
       })
 
